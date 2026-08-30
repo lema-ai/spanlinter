@@ -20,6 +20,11 @@ A span name must be dotted snake_case with at least two segments
 Duplicate names make traces ambiguous in Coralogix.
 
 Non-constant names (built at runtime) are skipped.
+
+The duplicate check holds only for one golangci-lint run over the whole tree with
+a cold cache; a cached package is never re-analyzed, so its names are not seen. A
+duplicate is reported at one of the two call sites, arbitrarily, so it cannot be
+suppressed with //nolint:spanlinter.
 `
 
 var Analyzer = &analysis.Analyzer{
